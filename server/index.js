@@ -13,8 +13,16 @@ const io = new Server(server, {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
+}); // this for cors middleware settings in relation to the socket io backend
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+  socket.on("send_message", (data) => {
+    console.log(data);
+  });
 });
-// this for cors middleware settings in relation to the socket io backend
+// this makes a connection to listen to the events happening with the socket io server in this case its the connection event.
+
 server.listen(3001, () => {
   console.log("server is live");
 });
